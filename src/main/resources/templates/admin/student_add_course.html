@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+					
+					<div class="container">
+							<div class="card-body">
+										<div class="container text-center">
+										<a class="btn btn-small btn-danger float-right my-0" th:href="@{'/admin/student/delete/'+${student.id}}" >Del</a>
+										<p class="btn btn-small btn-warning float-right my-0 mx-1" data-toggle="modal" data-target=".bd-example-modal-lg"  >Edit</p>
+										
+											<img style="border-radius:20%;" class="m-2" width="120px" th:src="@{'/img/'+${(student.profile !=null)? student.profile : 'defaultStudent.png'}}" alt="student image" />
+											<div class="m-1" id="change-teacher" style="display:none;">
+														<form th:action="@{/admin/student/process_add_course}" method="post" class="form" th:object="${student}" >
+														<div class="row">
+														<input type="text" class="col-md-1" name="sid" hidden=true th:value="${student.id}" />
+															<div class="col-md-7">
+																<select class="form-control" name="cid">
+																	<option  th:each="c:${courses}" th:value="${c.id}" th:text="${c.name}"></option>
+																</select>
+															</div>
+															
+														<div class="col-md-4">
+															<button class="form-control btn-primary" type="submit">Submit</button>
+														</div>
+														</div>
+													</form>
+											</div>
+											
+										</div>
+										<table class="table">
+											<tr>
+												<th>Course : </th>
+												<td><span th:each="c : ${student.courses}" th:text="${c.name+ ' '}"></span>
+												<b><a class="btn btn-outline-success" onclick="$('#change-teacher').show()">Add Course</a></b>
+												
+													
+											</tr>
+											<tr>
+												<th>Student Name : </th>
+												<td><p th:text="${student.name}"></p></td>
+											</tr>
+											<tr>
+												<th>Registration No : </th>
+												<td><p th:text="${student.registrationNo}"></p></td>
+											</tr>
+											<tr>
+												<th>Roll No : </th>
+												<td><p th:text="${student.rollNo}"></p></td>
+											</tr>
+											<tr>
+												<th>Gender : </th>
+												<td><p th:text="${student.sex}"></p></td>
+											</tr>
+											<tr>
+												<th>Father's Name : </th>
+												<td><p th:text="${student.fatherName}"></p></td>
+											</tr>
+											
+											<tr>
+												<th>Email : </th>
+												<td><p th:text="${student.email}"></p></td>
+											</tr>
+											<tr>
+												<th>Mobile : </th>
+												<td><p th:text="${student.numbers}"></p></td>
+											</tr>
+																		
+										</table>
+									
+									
+									</div>
+						
+					
+					</div>
+					
+					
+					
+										<!-- modal for edit student  -->
+
+		<div class="modal fade bd-example-modal-lg" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="container">
+						<div class="card-body">
+							<h2 class="text-center text-primary">Edit Student Details</h2>
+							<form th:action="@{/admin/student/process_update_student}" th:object="${newstudent}" enctype="multipart/form-data" method="post">
+								<div class="form-group">
+											<img class="text-center py-2" width="80px" th:src="@{'/img/'+${(student.profile==null)? 'defaultStudent.png': student.profile}}" alt="student img" />
+											<label for="input-file">
+												<img th:src="@{/img/upload-file.webp}" class="uploading-image" style="cursor:pointer" width="90px" alt="upload file" />
+											</label>
+											<input type="file" id="input-file" onchange="showUploadingImage(event)" name="myfile" style="display:none">
+								</div>
+							
+								<div style='display:none;' class="form-group">
+									<label for="exampleInputEmail1">Student Id</label> <input
+										name="id"
+										type="number" class="form-control"
+										th:value="${student.id}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Student Name</label> <input
+										name="name"
+										type="text" class="form-control"
+										aria-describedby="emailHelp" th:value="${student.name}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFN">Father Name</label> <input
+										name="fatherName"
+										type="text" class="form-control"
+										aria-describedby="emailHelp" th:value="${student.fatherName}">
+								</div>
+									<div class="form-group">
+									<label for="exampleInputEmail">Email</label> <input
+										name="email"
+										type="text" class="form-control"
+										aria-describedby="emailHelp" th:value="${student.email}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputRN">Roll No</label> <input
+										name="rollNo"
+										type="number" class="form-control"
+										aria-describedby="emailHelp" th:value="${student.rollNo}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputRN">Registration No</label> <input
+										name="registrationNo"
+										type="number" class="form-control"
+										aria-describedby="emailHelp" th:value="${student.registrationNo}">
+								</div>
+<!-- 								<div class="form-group">
+									<label for="exampleInputRN">Date of Birth</label> <input
+										name="dob"
+										type="date" class="form-control"
+										aria-describedby="emailHelp" th:value="${student.dob}">
+								</div> -->
+	
+								<div class="form-group">
+									<label for="exampleInputFee">Number</label> <input
+										name="numbers"
+										th:value="${student.numbers}"
+										type="number" class="form-control">
+								</div>
+								<div style="display:none;" class="form-group">
+									<label for="exampleInputFee">City</label> <textarea
+										name="address.id"
+										th:text="${student.address.id}"
+										class="form-control"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFee">City</label> <textarea
+										name="address.city"
+										th:text="${student.address.city}"
+										class="form-control"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFee">Street</label> <textarea
+										name="address.street"
+										th:text="${student.address.street}"
+										class="form-control"></textarea>
+								</div>
+
+								<div class="container text-center">
+									<button onclick="requestPayment()" class="btn btn-primary">Submit</button>
+								</div>
+						</form>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal for edit student -->	
+		
+	</section>
+</body>
+</html>

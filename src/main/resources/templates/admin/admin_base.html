@@ -1,0 +1,272 @@
+<!doctype html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)" >
+ <head>
+    <meta charset="utf-8">
+    <title>Smart School </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link th:href="@{img/favicon.ico}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link th:href="@{/lib/flaticon/font/flaticon.css}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <script>
+    
+
+    </script>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar fixed-top navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <i class="flaticon-043-teddy-bear"></i>
+                <span class="text-primary">SmartSchool</span>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a th:href="@{/admin/}" class="nav-item nav-link menu-item-home"  >Home</a>
+                    <a th:href="@{/admin/students}" class="nav-item nav-link menu-item-students" >Students</a>
+                    <a th:href="@{/admin/courses}" class="nav-item nav-link menu-item-courses">Classes</a>
+                    <a th:href="@{/admin/gallery}" class="nav-item nav-link menu-item-gallery">Gallery</a>
+                    <a th:href="@{/admin/teachers}" class="nav-item nav-link menu-item-teachers">Teachers</a>
+                    <a th:href="@{/account/accounts}" class="nav-item nav-link menu-item-accounts">Accounts</a>
+                    <!-- <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Events</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a th:href="@{/events}" class="dropdown-item">Events</a>
+                            <a th:href="@{/events/notice}" class="dropdown-item ">Notice</a>
+                        </div>
+                    </div> -->
+                </div>
+                <a  class="btn btn-outline-primary px-4 mr-2">Welcome! <span th:text="${admin.name}"></span></a>
+                <a th:href="@{/logout}" class="btn btn-primary px-4">Log out</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+<!-- Sidebar start  -->
+
+	<div class="sidebar-panel card">
+		<!-- sidebar cross btn -->
+		<p onclick="buttonToggler()" class="text-right mt-2 mr-4 sidebar-crossBtn"><i class="fas fa-times"></i></p>
+		<div class="pt-5">
+		
+		
+		<span class="sidebar-icon"><i class="fab fa-buromobelexperte"></i></span>
+		<a th:href="@{/admin/}" class="sidebar-item sidebar-menu-item-home" href=""><i class="fas fa-home"></i> Home</a>
+		<a th:href="@{/admin/users}" class="sidebar-item sidebar-menu-item-users"><i class="fas fa-users"></i> Users</a>
+		<a th:href="@{/admin/teachers}" class="sidebar-item sidebar-menu-item-teachers" ><i class="fas fa-user-tie"></i>  Teachers</a>
+		<a th:href="@{/admin/students}" class="sidebar-item sidebar-menu-item-students" ><i class="fas fa-users"></i> Students</a>
+
+		</div>
+		
+		<div class="dropdown">
+			  <a class="dropdown-toggle sidebar-item sidebar-menu-item-courses" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  <i class="fas fa-book-open"></i> Courses
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
+			    <a th:href="@{/admin/add_course}" class="dropdown-item" type="button">Add New Course</a>
+			    <a th:href="@{/admin/courses}" class="dropdown-item" type="button">All Courses</a>
+			  </div>
+		</div>
+		
+				<a class="sidebar-item sidebar-menu-item-enqueries" th:href="@{/admin/enqueries}">
+			  <i class="fas fa-question-circle"></i> Enqueries
+			  </a>
+			  <a class="sidebar-item sidebar-menu-item-accounts" th:href="@{/account/accounts}"> <i class="fas fa-wallet"></i> Accounts</a>
+			 <a class="sidebar-item sidebar-menu-item-noticeboard" th:href="@{/admin/noticeboard}"> <i class="fas fa-clipboard"></i> Notice Board</a>
+
+		
+
+		<a th:href="@{/logout}" class="sidebar-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		</div>
+		
+	</div>
+
+<!-- Sidebar end -->
+
+	<div class="content-area">
+			<div class="sidebarBtn">
+				<i onclick="buttonToggler()" class="fas fa-align-justify"></i>
+			</div>
+		
+			<div th:replace="${content}"></div>
+	</div>
+
+	<script>
+
+	searchFunction=(obj)=>{
+		
+		let num =obj.value.trim()
+		if(num != ""){
+			$.ajax({
+				url:"/admin/search/student",
+				method:"post",
+				data:{"query":num},
+				success:function(data){
+					console.log(data)
+					$("#myContainer").html("")
+					data.forEach(d=>{
+						$("#myContainer").append(
+								"<div class='col-md-4'><div class='card'><div class='card-body'><div class='text-center'>"+
+										"<img class='m-2' width='90px' src='/img/"+d.profile+"' alt='student image' />"
+										+"<a href='/account/account/' class='btn btn-warning btn-small'>Action</a>"
+									+	"<table class='table'><tr><th>Account Number :</th><td> <h4>SSMS <span></span> </h4></td>"
+									+	"</tr><tr ><th>Accunt Balance :</th><td> <h4>0.0</h4></td></tr>"
+									+	"<tr class='table-warning'><td colspan='2'><div>"
+									+		"<p>Student Name :"+d.name+"</p><p>Father's Name : "+d.fatherName+"</p>"
+											
+									+		"</div></td></tr></table></div></div></div></div>");
+					})
+				}
+			
+				
+			})
+		}else{
+			 $( "#myContainer" ).load(window.location.href + " #myContainer" );
+		}
+	}
+
+	
+	goToAccount=()=>{
+		let acno =$("#account_no_input").val()
+		if(acno==""){
+			return
+		}
+		window.location = "/account/account/"+acno
+	}
+	
+searchStudent=(obj)=>{
+		
+		let num =obj.value.trim()
+		if(num != ""){
+			$.ajax({
+				url:"/admin/search/student",
+				method:"post",
+				data:{"query":num},
+				success:function(data){
+					console.log(data)
+					$("#studentsContainer").html("")
+					data.forEach(d=>{
+						$("#studentsContainer").append(
+								"<div class='col-md-3 mb-3'><div class='card'><div class='card-body'><div class='container text-center'><div>"
+										+	"<img style='border-radius:20%;' class='m-2' width='100px' src='/img/"+d.profile+"'/>"
+										+	"<a href=/admin/student/add_course/"+d.id+" class='btn btn-small btn-warning' > Action </a>"
+										+   "</div></div> <table class='table'><tr><th>Name : </th><td><p>"+d.name+"</p></td></tr>"
+										+   "<tr><th>Course: </th><td>Class IX"
+										+"</td></tr><tr><th>Registration No : </th><td><p>SSMS"+ d.registrationNo +"</p></td></tr>"
+									+"</table></div></div></div>"
+							);
+					})
+				}
+			
+				
+			})
+		}else{
+			 $( "#studentsContainer" ).load(window.location.href + " #studentsContainer" );
+		}
+	}
+goToStudent=()=>{
+	let sid =$("#student_no_input").val()
+	if(sid==""){
+		return
+	}
+	window.location = "/admin/student/add_course/"+sid
+}
+getStudentsByCourse=()=>{
+	
+	let num =document.getElementById("courseName").value.trim()
+
+	if(num != 0){
+		$.ajax({
+			url:"/admin/search/students",
+			method:"post",
+			data:{"query":num},
+			success:function(data){
+				console.log(data)
+				$("#studentsContainer").html("")
+				data.forEach(d=>{
+					$("#studentsContainer").append(
+							"<div class='col-md-3 mb-3'><div class='card'><div class='card-body'><div class='container text-center'><div>"
+									+	"<img style='border-radius:20%;' class='m-2' width='100px' src='/img/"+d.profile+"'/>"
+									+	"<a href=/admin/student/add_course/"+d.id+" class='btn btn-small btn-warning' > Action </a>"
+									+   "</div></div> <table class='table'><tr><th>Name : </th><td><p>"+d.name+"</p></td></tr>"
+									+   "<tr><th>Course: </th><td>Class IX"
+									+"</td></tr><tr><th>Registration No : </th><td><p>SSMS"+ d.registrationNo +"</p></td></tr>"
+								+"</table></div></div></div>"
+						);
+				})
+			}
+		
+			
+		})
+	}else{
+		 $( "#studentsContainer" ).load(window.location.href + " #studentsContainer" );
+	}
+}
+
+calculatePerCourse=(obj)=>{
+	let first = obj.value.substring(0,1)
+	let last = obj.value.substring(1)
+	let percent = "#percent"+last
+	let result = "#total"+last
+	let percentV = $(percent).value
+	if(first=="s"){
+		let res=percentV
+		$(result).text("2")
+	}else{
+		
+	}
+}
+	</script>
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    
+    <script th:src="@{/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+    <script th:src="@{/lib/isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/lib/lightbox/js/lightbox.min.js}"></script>
+
+    <!-- Contact Javascript File -->
+    <script th:src="@{/mail/jqBootstrapValidation.min.js}"></script>
+    <script th:src="@{/mail/contact.js}"></script>
+
+    <!-- Template Javascript -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/myscript.js}"></script>
+    
+
+</body>
+</html>

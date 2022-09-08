@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="card form-container container mt-2">
+			<div class="container text-center p-2">
+				<h1>New Student Registration</h1>
+			</div>
+			
+			<div class="card-body">
+			<form th:action="@{/admin/student/process_add_student}" method="post" th:object="${student}">
+			<fieldset class="card card-body mb-2">
+			
+			<div class="form-group">
+					<label for="exampleInputEmail1">User Id</label> <input
+					readonly
+						name="user.id"
+						type="number" class="form-control bg-light"
+						th:value="${user.id}"
+						> 
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">User's Name</label> <input
+						name="user.name"
+						type="text" class="form-control"
+						th:value="${user.name}"
+						> 
+				</div>
+			
+			<div class="form-group">
+					<label for="exampleInputEmail1">User Name</label> <input
+						name="user.username"
+						type="text" class="form-control"
+						th:value="${user.username}"
+						> 
+				</div>
+			
+			</fieldset>
+
+
+				<div class="form-group">
+					<label for="exampleInputEmail1">Name</label> <input
+						required
+						name="name"
+						type="text" class="form-control"
+						th:value="${user.name}"
+						placeholder="Enter Full Name"> 
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Gender</label> <input
+						readonly
+						name="sex"
+						type="text" class="form-control"
+						th:value="${user.sex}"
+						> 
+				</div>
+				
+				<div class="form-group">
+					<label for="exampleInputEmail1">Father Name</label> <input
+						required
+						name="fatherName"
+						type="text" class="form-control"
+						placeholder="Enter Father's Name"> 
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email address</label> <input
+						required
+						name="email"
+						type="email" class="form-control" id="exampleInputEmail1"
+						th:value="${user.username}"
+						aria-describedby="emailHelp" placeholder="Enter email"> 
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Mobile No</label> <input
+						required
+						name="numbers"
+						type="number" class="form-control"
+						placeholder="8212345678"> 
+				</div>
+
+				<div class="form-group">
+					<label for="exampleInputEmail1">City</label> <input
+						required
+						name="address.city"
+						type="text" class="form-control"
+						placeholder="Your present city"> 
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Street</label> <input
+						required
+						name="address.street"
+						type="text" class="form-control"
+						placeholder="H.No. Locality etc."> 
+				</div>		
+
+				<div class="container text-center">
+					<button type="submit" class="btn btn-primary">Register</button>
+				</div>
+			</form>
+			
+			
+			
+			</div>
+
+
+		</div>
+
+
+	</section>
+</body>
+</html>

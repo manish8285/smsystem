@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+					<div class="bg-primary">
+						<div class="container py-2">
+							<div class="card bg-white">
+								<div class="card-body">
+									<h2>Add New Notice</h2>
+									<form th:action="@{/admin/notice/save}" method="post" enctype="multipart/form-data" class="form">
+										<div class="form-group">
+											<input class="form-control" name="title" type="text" placeholder="Enter title" />
+										</div>
+										<div class="form-group">
+											<textarea rows="3" name="description" placeholder="Enter Description"  class="form-control"></textarea>
+										</div>
+										<div class="form-group">
+											<label for="input-file">
+												<img th:src="@{/img/upload-file.webp}" class="uploading-image" style="cursor:pointer" width="90px" alt="upload file" />
+											</label>
+											<input type="file" id="input-file" onchange="showUploadingImage(event)" name="myfile" style="display:none">
+										</div>
+										<div class="container text-center">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							
+							<div th:each="notice : ${notices}" class="card bg-white my-1">
+								<div class="card-body">									
+									<p class="text-right" th:text="${notice.date}"></p>
+									<h2 class="text-center" th:text="${notice.title}"></h2>
+									<p th:text="${notice.description}"></p>
+									<div class="container text-center">
+										<a th:href="@{'/img/'+${notice.image}}">
+										<img class="text-center" th:src="@{'/img/'+${notice.image}}" alt="notice image" height="300" />
+										</a>
+									</div>
+									<h3 class="text-right" >Issued By</h3>
+									<p class="text-right" th:text="${notice.issueby}"></p>
+									<a th:href="@{'/admin/notice/delete/'+${notice.id}}" class="text-danger" ><i class="fas fa-trash-alt"></i></a>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+		
+		
+	</section>
+</body>
+</html>

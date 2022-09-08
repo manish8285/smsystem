@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+					
+
+					<div class="form-group search-box">
+				      <div class="row mr-0 ml-md-1">
+				      	<input class="form-control col-md-5 mr-sm-2" type="text" onkeyup="searchFunction(this)" placeholder="Enter name to search" aria-label="Search">
+				      <input type="text" class="form-control col-md-5" placeholder="Enter Account number" id="account_no_input"/>
+				      <input type="button" value="open" class="ml-md-1 col-md-1 btn btn-outline-primary" onclick="goToAccount()" />
+				      </div>
+				      	<!-- <div class="card search-box-result">
+				      		<p>Account 1</p>
+				      	</div> -->
+				    
+				      </div>
+				   
+					
+					
+					
+				<div class="row mr-0 myContainer" id="myContainer">
+								
+								<div class="col-md-4" th:each="account: ${accounts}" th:if="${account.student}">
+									<div class="card">
+										<div class="card-body ">
+										<div class="text-center">
+											<img th:if="${account.student}" class="m-2" width="90px" th:src="@{'/img/'+${(account.student.profile !=null)? account.student.profile : 'defaultStudent.png'}}" alt="student image" />
+											<a th:href="@{'/account/account/'+ ${account.acid}}" class="btn btn-warning btn-small">Action</a>
+											<table class="table">
+											<tr th:if="${account.user}">
+												<th>Account Number :</th>
+												<td> <h4>SSMS <span th:text="${account.acid}"></span> </h4></td>
+											</tr>
+											<tr >
+												<th>Account Balance :</th>
+												<td> <h4 th:text="${account.accountBalance}"></h4></td>
+											</tr>
+											<tr class="" th:classAppend="${ (account.student != null)? 'table-warning': 'table-success'}">
+												<td colspan="2">
+												<div >
+												<p th:if="${account.student}">Student Name : <span th:text="${account.student.name}"></span></p>
+												<p>Father's Name : <span  th:text="${account.student.fatherName}"></span></p>
+												</div>
+												</td>
+											
+												
+											</tr>
+
+											</table>
+										</div>
+									</div>	
+									
+									</div>
+	
+									</div>
+				
+				
+				</div>
+	
+							
+								
+					
+		
+	</section>
+</body>
+</html>

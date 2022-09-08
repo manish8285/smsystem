@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+					
+						<div class="text-center pb-2">
+		                <p class="section-title px-5"><span class="px-2">Our Courses</span></p>
+		                <h1 class="mb-4">Our Courses</h1>
+		            </div>
+						<div class="row mr-0">
+								<div class="col-md-4 mb-2" th:each="c: ${courses}">
+									<div class="card">
+										<div class="card-body">
+										<div class="container text-center">
+											<img class="m-2" width="140px" th:src="@{${(c.profile !=null)? c.profile : '/img/teacher.jpg'}}" alt="teacher image" />
+											<h4 th:text="${c.name}"></h4>
+										</div>
+										<table class="table">
+											<tr>
+												<th>Teacher : </th>
+												<td><p th:text="${(c.teacher !=null)? c.teacher.name : 'Not Assigned'}"></p></td>
+											</tr>
+											<tr>
+												<th>Class Time : </th>
+												<td><p th:text="${c.time}"></p></td>
+											</tr>
+											<tr>
+												<th>Duration : </th>
+												<td><p th:text="${c.duration}"></p></td>
+											</tr>
+											<tr>
+												<th>Session : </th>
+												<td><p th:text="${c.session}"></p></td>
+											</tr>
+											<tr>
+												<th>Total Students : </th>
+												<td><span th:text="${#lists.size(c.students)}"></span></td>
+											</tr>
+											<a th:href="@{'/admin/course/'+${c.id}}" class="btn btn-primary btn-block mb-1"> More Action</a>									
+										</table>
+									
+									
+									</div>
+									</div>
+							
+								</div>
+						
+						
+						
+						
+						</div>	
+						
+					
+					</div>
+					
+					
+		
+	</section>
+</body>
+</html>

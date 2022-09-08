@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="student/student_base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<h1 class="text-center">My Attendence</h1>
+		
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<div id="calendar"></div>	
+			</div>
+		</div>
+		
+
+		<p th:text="${course.id}" id="course-id" style="display:none"></p>
+		<p th:text="${course.name}" id="course-name" style="display:none"></p>
+	</section>
+</body>
+</html>

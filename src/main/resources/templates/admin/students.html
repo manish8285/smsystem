@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+			<div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">Our Students</span></p>
+                <h1 class="mb-4">Meet Our Students</h1>
+            </div>
+             <div class="form-group search-box">
+				      <div class="row mr-0 pr-2 m-md-1">
+				      	<input class="form-control col-md-6" type="text" onkeyup="searchStudent(this)" placeholder="Enter name to search" aria-label="Search">
+				      <select class="form-control col-md-6 text-center"  name="" id="courseName" onchange="getStudentsByCourse()">
+				      <option value="0">---All---</option>
+				      <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}"></option>
+				      </select>
+				      </div>
+				      	<!-- <div class="card search-box-result">
+				      		<p>Account 1</p>
+				      	</div> -->
+				    
+				      </div>
+						<div class="row mr-0" id="studentsContainer">
+								<div class="col-md-3 mb-3" th:each="s: ${students}">
+									<div class="card">
+										<div class="card-body">
+										<div class="container text-center">
+											<div>
+												<img style="border-radius:20%;" class="m-2" width="100px" th:src="@{'/img/'+${(s.profile !=null)? s.profile : 'defaultStudent.png'}}" alt="teacher image" />
+												<a th:href="@{'/admin/student/add_course/'+${s.id}}" class="btn btn-small btn-warning">Action</a>
+												
+											</div>
+											
+											
+										</div>
+										
+										<table class="table">
+										<tr>
+												<th>Name : </th>
+												<td><p th:text="${s.name}"></p></td>
+											</tr>
+											<tr>
+												<th>Course: </th>
+												<td><span th:each="c : ${s.courses}" th:text="${c.name+ ' '}"></span>
+																								</td>
+											</tr>
+											<tr>
+												<th>Registration No : </th>
+												<td><p >SSMS<span th:text="${s.registrationNo}"></span></p></td>
+											</tr>
+							
+										</table>								
+									
+									</div>
+									</div>
+								</div>
+						
+						
+						
+				</div>	
+	
+	</section>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<style>
+	section {
+	margin-right:5px;}
+</style>
+</head>
+<body>
+	<section>
+
+
+		<div class="container">
+			<h1 class="text-center">Account details</h1>
+			<div class="card-body">
+				<div class="row mr-0" >
+					<div class="col-md-4">
+						<div class="container text-center">
+							<img class="m-2" width="140px"
+								th:src="@{'/img/'+${(account.student.profile !=null)? account.student.profile : 'defaultStudent.png'}}"
+								alt="student image" />
+						</div>
+					</div>
+
+				<!-- Student details -->
+				<div class="col-md-8">
+					<table class="table">
+					<tr>
+						<th>Account Number :</th>
+						<td><p >SSMS <span th:text="${account.acid}"></span></p></td>
+					</tr>
+					
+					<tr th:if="${account.student}">
+						<th>Student Name :</th>
+						<td><a th:href="@{'/admin/student/add_course/'+${account.student.id}}" th:text="${account.student.name}"></a></td>
+					</tr>
+					<tr th:unless="${account.student}">
+						<th>User Name :</th>
+						<td><p th:text="${account.user.name}"></p></td>
+					</tr>
+					<tr th:if="${account.student}">
+						<th>Father's Name :</th>
+						<td><p th:text="${account.student.fatherName}"></p></td>
+					</tr>
+					<tr th:if="${account.student}">
+						<th>Course :</th>
+						<td><p th:each="c : ${account.student.courses}" th:text="${c.name}"></p></td>
+					</tr>
+
+					<tr>
+						<th>Account Balance :</th>
+						<td><p class="btn btn-small btn-success"
+								th:text="${account.accountBalance}"></p>
+							<p class="btn btn-small btn-danger ml-3 mt-0"
+							data-toggle="modal" data-target=".bd-example-modal-lg-1"
+							>Make Transaction</p>
+								</td>
+					</tr>
+
+				</table>
+				</div>
+				
+				</div>
+
+
+</div>
+</div>
+				<h2 class="text-left text-primary mt-5">Transactions</h2>
+
+				<div class="pr-5">
+					<!-- payment details start -->
+				<div class="table-responsive">
+				<table class="table" th:if="${account.transactions != null}">
+					<thead class="thead-dark">
+						<tr>
+						<th>#Id</th>
+						
+						<th>Amount</th>
+						<th>Time stamp</th>
+						<th>Type</th>
+						<th>Remarks</th>
+						<th>Mode</th>
+						
+						<th>Balance</th>
+					</tr>
+					</thead>
+					<tr class="" th:each="i : ${#numbers.sequence(account.transactions.size()-1,0,-1)}" th:classAppend="${(account.transactions[i].type == 'DEBIT')? 'table-danger' : 'table-success'}">
+						<td th:text="${account.transactions[i].id}"></td>
+						<td th:text="${account.transactions[i].amount}"></td>
+						<td th:text="${account.transactions[i].timestamp}"></td>
+						<td th:text="${account.transactions[i].type}"></td>
+						<td th:text="${account.transactions[i].remarks}"></td>
+						<td th:text="${account.transactions[i].mode}"></td>
+						<td th:text="${account.transactions[i].balance}"></td>
+					</tr>
+
+				</table>
+				</div>
+				<!-- payment details end -->				
+				</div>
+
+
+		<!-- modal for Transaction  -->
+
+		<div class="modal fade bd-example-modal-lg-1" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="container">
+						<div class="card-body">
+							<h2>Transaction</h2>
+							<form th:action="@{/account/transaction}" method="post" th:object="${transaction}">
+								<div class="form-group">
+
+									 <input
+										name="acid"
+										type="number" id="accountName" class="form-control"
+										style="display:none"
+										 th:value="${account.acid}">
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputEmail1">Amount</label> <input
+										name="amount"
+										type="number" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="type">Type</label>
+									<select name="type" id="type" class="form-control">
+										<option value="DEBIT">DEBIT</option>
+										<option value="CREDIT">CREDIT</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="mode">Mode</label>
+									<select name="mode" id="mode" class="form-control">
+										<option value="CASH">CASH</option>
+										<option value="ONLINE">ONLINE</option>
+										<option value="OTHER">OTHER</option>
+									</select>
+								</div>
+								
+								<div class="form-group">
+									<label for="remark">Remarks</label> <input
+										name="remarks"
+										type="text" class="form-control">
+								</div>
+
+								<div class="container text-center">
+									<button type="submit" class="btn btn-primary">Make Transaction</button>
+								</div>
+								
+							</form>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal for charge end -->
+
+
+	</section>
+</body>
+</html>

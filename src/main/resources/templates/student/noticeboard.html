@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="student/student_base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+					<div class="bg-primary">
+						<div class="container py-2">
+							
+							
+							<div th:each="notice : ${notices}" class="card bg-white my-1">
+								<div class="card-body">									
+									<p class="text-right" th:text="${notice.date}"></p>
+									<h2 class="text-center" th:text="${notice.title}"></h2>
+									<p th:text="${notice.description}"></p>
+									<div class="container text-center">
+										<a th:href="@{'/img/'+${notice.image}}">
+										<img class="text-center" th:src="@{'/img/'+${notice.image}}" alt="notice image" height="300" />
+										</a>
+									</div>
+									<h3 class="text-right" >Issued By</h3>
+									<p class="text-right" th:text="${notice.issueby}"></p>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+		
+		
+	</section>
+</body>
+</html>

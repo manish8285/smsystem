@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>		
+					<div class="container">
+							<div class="card-body">
+										<div class="container text-center">
+										<a class="btn btn-small btn-danger float-right my-0 ml-1" th:href="@{'/admin/course/delete/'+${course.id}}" >Delete</a>
+										<p class="btn btn-small btn-warning float-right my-0" data-toggle="modal" data-target=".bd-example-modal-lg"  >Edit</p>
+										
+											<img class="m-2" width="140px" th:src="@{${(course.profile !=null)? course.profile : '/img/teacher.jpg'}}" alt="teacher image" />
+											<h4 th:text="${course.name}"></h4>
+											
+														<div class="m-1" id="change-teacher" style="display:none;">
+														<form th:action="@{/admin/course/teacher}" method="post" class="form" th:object="${course}" >
+														<div class="row">
+														<input type="text" class="col-md-1" name="cid" hidden=true th:value="${course.id}" />
+															<div class="col-md-7">
+																<select class="form-control" name="tid">
+																	<option  th:each="t:${teachers}" th:value="${t.id}" th:text="${t.name}"></option>
+																</select>
+															</div>
+															
+														<div class="col-md-4">
+															<button class="form-control btn-primary" type="submit">Submit</button>
+														</div>
+														</div>
+													</form>
+													</div>
+											
+										</div>
+										<table class="table">
+											<tr>
+												<th>Teacher : </th>
+												<td><p class="btn btn-outline-success" onclick="$('#change-teacher').show()" th:text="${(course.teacher !=null)? course.teacher.name : 'Not Assigned'}"></p>
+												</td>
+												
+													
+											</tr>
+											<tr>
+												<th>Class Time : </th>
+												<td><p th:text="${course.time}"></p></td>
+											</tr>
+											<tr>
+												<th>Duration : </th>
+												<td><p th:text="${course.duration}"></p></td>
+											</tr>
+											<tr>
+												<th>Session : </th>
+												<td><p th:text="${course.session}"></p></td>
+											</tr>
+											<tr>
+												<th>Fee : </th>
+												<td><p th:text="${course.fees}"></p></td>
+											</tr>
+											<tr>
+												<th>Total Students : </th>
+												<td><p th:text="${#lists.size(course.students)}"></p></td>
+											</tr>
+																		
+										</table>
+									
+									
+									</div>
+						
+					
+					</div>
+					
+									
+					<!-- modal for edit course  -->
+
+		<div class="modal fade bd-example-modal-lg" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="container">
+						<div class="card-body">
+							<h2>Edit Course Details</h2>
+							<form th:action="@{/admin/process_update_course}" method="post">
+								<div class="form-group" style="display:none">
+									<label for="exampleInputEmail1">Course Id</label> <input
+										name="id"
+										type="number" class="form-control"
+										th:value="${course.id}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Course Name</label> <input
+										name="name"
+										type="text" class="form-control"
+										aria-describedby="emailHelp" th:value="${course.name}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Session</label> <input
+										name="session"
+										id="account_id"
+										type="text" class="form-control"
+										
+										 th:value="${course.session}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Duration</label> <input
+										name="duration"
+										th:value="${course.duration}"
+										type="text" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputTime">Timing</label> <input
+										name="time"
+										th:value="${course.time}"
+										type="time" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFee">Fee</label> <input
+										name="fees"
+										th:value="${course.fees}"
+										type="number" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFee">About</label> <textarea
+										name="about"
+										th:text="${course.about}"
+										class="form-control"></textarea>
+								</div>
+
+								<div class="container text-center">
+									<button onclick="requestPayment()" class="btn btn-primary">Submit</button>
+								</div>
+						</form>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal for edit course -->	
+					
+					
+		
+	</section>
+</body>
+</html>

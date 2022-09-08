@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+					<div class="mr-2">
+						<div class="table-responsive-sm">
+						  <table class="table">
+						      <thead class="bg-primary text-white">
+							    <tr>
+							      <th scope="col">#</th>
+							      <th scope="col">Name</th>
+							      <th scope="col">Email</th>
+							      <th scope="col">Mobile</th>
+							      <th scope="col">Subject</th>
+							      <th scope="col">Message</th>
+							      <th scope="col">Action</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  	<tr th:each="enquery : ${enqueries}" class="" th:classappend="${enquery.status == 'RESPONDED'} ? '' : 'bg-light' ">
+							  		<td ><span th:text="${enquery.id}"></span></td>
+							  		<td ><span th:text="${enquery.name}"></span></td>
+							  		<td ><a th:href="@{'mailto:'+${enquery.email}}"><span th:text="${enquery.email}"></span></a></td>
+							  		<td ><a th:href="@{'tel:'+${enquery.mobile}}"><span th:text="${enquery.mobile}"></span></a></td>
+							  		<td ><span th:text="${enquery.subject}"></span></td>
+							  		<td ><span th:text="${enquery.message}"></span></td>
+							  		<td class="d-flex">
+							  		<form th:action="@{'/admin/enquery/delete/'+${enquery.id}}" method="post"><button class="btn btn-outline-primary" type="submit"><i class="fas fa-trash-alt"></i></button></form>
+							  		<form th:if="${enquery.status != 'RESPONDED'}" th:action="@{'/admin/enquery/status/'+${enquery.id}}" method="post"><button class="btn btn-outline-primary ml-1" type="submit"><i class="fas fa-check"></i></button></form>
+							  		</td>
+							  	</tr>
+							  </tbody>
+						  </table>
+						</div>
+					</div>
+		
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="teacher/teacher_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+					
+					<div class="container">
+						<h1 class="text-center text-primary">Mark Attendence</h1>
+						<div class="card">
+							<div class="card-body">
+								<div class="container text-center">
+									<h2 th:text="${course.name}"></h2>
+									<h4 th:text="${course.session}"></h4>
+									<h4>Total Students : <span th:text="${#lists.size(course.students)}"></span></h4>
+								</div>
+								
+								<form th:action="@{'/teacher/process_attendence/'+${course.id}}" th:object="${sids}" class="form" method="post">
+									<table class="table">
+										<tr>
+											<th>Roll No</th>
+											<th>Name</th>
+											<th>Action</th>
+										</tr>
+										<tr class="form-group" th:each="student,itemStat : ${course.students}">
+											
+											<td th:text="${student.rollNo}"></td>
+											<td th:text="${student.name}"></td>
+											<td class="form-group"><input class="form-control" th:value="${student.id}" type="checkbox" name="sids" /></td>
+										</tr>
+									</table>
+									<div class="container text-center">
+										<button id="submitAttendence" class="btn btn-primary" type="submit">Submit</button>
+									</div>
+								</form>
+								
+							</div>
+						</div>
+					</div>
+
+		
+	</section>
+</body>
+</html>

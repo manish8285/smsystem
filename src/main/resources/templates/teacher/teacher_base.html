@@ -1,0 +1,112 @@
+<!doctype html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)" >
+ <head>
+    <meta charset="utf-8">
+    <title>Smart School</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link th:href="@{img/favicon.ico}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link th:href="@{/lib/flaticon/font/flaticon.css}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar fixed-top navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a th:href="@{/teacher/}" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <i class="flaticon-043-teddy-bear"></i>
+                <span class="text-primary">SmartSchool</span>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a th:href="@{/teacher/}" class="nav-item nav-link menu-item-home">Home</a>
+                    <a th:href="@{/teacher/courses}" class="nav-item nav-link menu-item-courses">Classes</a>
+					<a th:href="@{/teacher/noticeboard}" class="nav-item nav-link menu-item-noticeboard">Notice Board</a>
+                 
+                </div>
+                <a class="btn btn-outline-primary px-4 mr-2">Welcome ! <span th:text="${teacher.name}"></span></a>
+                <a th:href="@{/logout}" class="btn btn-primary px-4">Log out</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+<!-- Sidebar start  -->
+
+	<div class="sidebar-panel card">
+		<!-- sidebar cross btn -->
+		<p onclick="buttonToggler()" class="text-right mt-2 mr-4 sidebar-crossBtn"><i class="fas fa-times"></i></p>
+		<div class="pt-5">
+		
+		
+		<span class="sidebar-icon"><i class="fab fa-buromobelexperte "></i></span>
+		<a th:href="@{/teacher/}" class="sidebar-item sidebar-menu-item-home" href=""><i class="fas fa-home"></i> Home</a>
+		<a th:href="@{/teacher/courses}" class="sidebar-item sidebar-menu-item-courses" href=""><i class="fas fa-book-open"></i> Courses</a>
+		<a class="sidebar-item sidebar-menu-item-noticeboard" th:href="@{/teacher/noticeboard}"> <i class="fas fa-clipboard"></i> Notice Board</a>
+		<a th:href="@{/logout}" class="sidebar-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		</div>
+		
+	</div>
+
+<!-- Sidebar end -->
+
+	<div class="content-area">
+			<div class="sidebarBtn">
+				<i onclick="buttonToggler()" class="fas fa-align-justify"></i>
+			</div>
+		
+			<div th:replace="${content}"></div>
+	</div>
+
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    
+    <script th:src="@{/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+    <script th:src="@{/lib/isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/lib/lightbox/js/lightbox.min.js}"></script>
+
+    <!-- Contact Javascript File -->
+    <script th:src="@{/mail/jqBootstrapValidation.min.js}"></script>
+    <script th:src="@{/mail/contact.js}"></script>
+
+    <!-- Template Javascript -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/myscript.js}"></script>
+</body>
+</html>

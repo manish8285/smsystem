@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="teacher/teacher_base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<h1 class="text-center">Attendence Records</h1>
+		<div class="mr-4">
+		<table class="table mt-2" th:each="at : ${attendence}">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Date : <span th:text="${at.date}"></span></th>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Course</th>
+					<th scope="col">Teacher</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="student : ${at.students}">
+					<td th:text="${at.date}"></td>
+					<th scope="row" th:text="${student.id}"></th>
+					<td th:text="${student.name}"></td>
+					<td th:text="${at.course.name}"></td>
+					<td th:text="${at.teacher.name}"></td>
+					
+				</tr>
+
+			</tbody>
+		</table>
+		</div>
+
+	</section>
+</body>
+</html>

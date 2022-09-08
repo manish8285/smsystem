@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="teacher/teacher_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+						<div class="row mr-0">
+							<div class="col-md-4" th:each="course : ${courses}">
+								<div class="card">
+									<div class="card-body">
+									<div class="text-center">
+									<img width="85px" th:src="@{'/img/'+${(course.profile ==null)? 'teacher.jpg' : course.profile}}" alt="course profile" />
+									<h2 th:text="${course.name}"></h2>
+									</div>
+									<table class="table">
+										<tr>
+											<th>Session :</th>
+											<td th:text="${course.session}"></td>
+										</tr>
+										<tr>
+											<th>Class Time :</th>
+											<td th:text="${course.time}"></td>
+										</tr>
+										<tr>
+											<th>Duration :</th>
+											<td th:text="${course.duration}"></td>
+										</tr>
+										<tr>
+											<th>Total Students :</th>
+											<td >
+											<span th:text="${#lists.size(course.students)}"></span>
+											
+											</td>
+										</tr>
+										<tr>
+											<th>Total Classes Done :</th>
+											<td >
+
+												<span th:text="${#lists.size(course.attendence)}" ></span>
+												<a class="btn btn-outline-primary btn-small mr-1" th:href="@{'/teacher/add_attendence/'+${course.id}}">Make Attendence</a>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2 p-0" >
+											<a class="btn btn-outline-success btn-small mr-1" th:href="@{'/teacher/attendence/'+${course.id}}">
+											<i class="fas fa-check-double"></i> Attendence
+											</a>
+											 
+											 <a class="btn btn-outline-success mr-1 btn-small" th:href="@{'/teacher/classroom/'+${course.id}}">
+											 <i class="fas fa-chalkboard-teacher"></i> Class Room
+											 </a>
+											 
+											</td>
+										</tr>
+									</table>
+									
+								</div>
+								</div>
+							</div>
+
+		</div>
+		
+	</section>
+</body>
+</html>

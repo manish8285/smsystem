@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="student/student_base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+		
+		<div class="bg-primary mr-2 p-5" style="height:100vh;">
+					<div class="container row m-0 p-0">
+			<div class="card my-id-card col-md-5 offset-md-4">
+				<div class="row mr-0">
+					<div class="col-3 text-center">
+						<img class="pt-2" width="50px" th:src="@{/img/teacher.jpg}" alt="" />
+					</div>
+					<div class="container text-center col-9">
+						<h3 class="mb-0">Smart School Managment</h3>
+						<p>Sector 9, Gurugram Haryana</p>
+					</div>
+				</div>
+				
+				<div class="container text-center bg-primary my-id-card-banner pt-1">
+					<h5>IDENTITY CARD</h5>
+				</div>
+				
+				<div class="row mr-0">
+					<div class="col-3">
+						<img class="text-center py-2" width="80px" th:src="@{'/img/'+${(student.profile==null)? 'defaultStudent.png': student.profile}}" alt="student img" />
+					</div>
+					
+					<div class="col-9">
+						<table class="">
+							<tbody>
+								<tr>
+									<th>Name : </th>
+									<td th:text="${student.name}"></td>
+								</tr>
+								<tr>
+									<th>Father's Name : </th>
+									<td th:text="${student.fatherName}"></td>
+								</tr>
+								<tr>
+									<th>Courses : </th>
+									<td ><span th:each="c: ${student.courses}" th:text="${c.name}"></span></td>
+								</tr>
+								<tr>
+									<th>Roll No : </th>
+									<td th:text="${student.rollNo}"></td>
+								</tr>
+								<tr>
+									<th>Mobile : </th>
+									<td th:text="${student.numbers}"></td>
+								</tr>
+							</tbody>
+						</table>
+					
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		</div>
+	
+
+
+	</section>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+					
+					<div class="bg-primary p-2">
+						<div class="row mr-0">
+						
+						<!-- Accountant card start -->
+							<div class="col-md-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="container text-center">
+										<h1><i class="fas fa-user-tie"></i></h1>
+										<h2>Accountants (<span th:text="${#lists.size(accountants)}"></span>)</h2>
+										
+									</div>
+									
+									<table class="table">
+										<tr>
+											<th>Add New</th>
+											<td>
+											<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".modal-1"><i class="fas fa-plus"></i></button>
+											</td>
+										</tr>
+										<tr>
+											<th>View All</th>
+											<td><a href="#accountant-row" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a></td>
+										</tr>
+									
+									</table>
+								</div>
+							</div>
+							</div>
+							<!-- Accountant card end -->
+						
+							<!-- Teacher card start -->
+							<div class="col-md-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="container text-center">
+										<h1><i class="fas fa-users"></i></h1>
+										<h2>Teachers (<span th:text="${#lists.size(teachers)}"></span>)</h2>
+										
+									</div>
+									
+									<table class="table">
+										<tr>
+											<th>Add New</th>
+											<td>
+											<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".modal-1"><i class="fas fa-plus"></i></button>
+											</td>
+										</tr>
+										<tr>
+											<th>View All</th>
+											<td><a href="#teachers-row" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a></td>
+										</tr>
+									
+									</table>
+								</div>
+							</div>
+							</div>
+							<!-- Admin card end -->
+							
+							
+							
+							<!-- Student card start -->
+							<div class="col-md-3">
+														<div class="card">
+								<div class="card-body">
+									<div class="container text-center">
+										<h1><i class="fas fa-user-graduate"></i></h1>
+										<h2>Students (<span th:text="${#lists.size(students)}"></span>)</h2>
+										
+									</div>
+									
+									<table class="table">
+										<tr>
+											<th>Add New</th>
+											<td>
+											<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".modal-1"><i class="fas fa-plus"></i></button>
+											</td>
+										</tr>
+										<tr>
+											<th>View All</th>
+											<td><a href="#students-row" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a></td>
+										</tr>
+									
+									</table>
+								</div>
+							</div>
+							</div>
+							<!-- Student card end -->
+							
+							<!-- Teachers card start -->
+							<div class="col-md-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="container text-center">
+										<h1><i class="fas fa-users"></i></h1>
+										<h2>Users (<span th:text="${#lists.size(other_users)}"></span>)</h2>
+										
+									</div>
+									
+									<table class="table">
+										<tr>
+											<th>Add New</th>
+											<td>
+											<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".modal-1"><i class="fas fa-plus"></i></button>
+											</td>
+										</tr>
+										<tr>
+											<th>View All</th>
+											<td><a href="#users-row" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a></td>
+										</tr>
+									
+									</table>
+								</div>
+							</div>
+							</div>
+							<!-- Teachers card end -->
+							
+							<!-- Accountant row start -->
+							
+							<div th:if="${not #lists.isEmpty(accountants)}"  class="col-md-12" id="accountant-row">
+								<div class="card mt-2">
+									
+								<div class="card-body">
+								<div class="card-header">
+										<h1><i class="fas fa-user-tie"></i> Accountant</h1>
+									</div>
+									
+								</div>
+								<div class="table-responsive">
+									  <table class="table">
+									    <tr>
+									    <th >#</th>
+									    <th >Name</th>
+									    <th >User Name</th>
+									    <th >Role</th>
+									    <th>Status</th>
+									    <th>Action</th>
+									    </tr>
+									    <tr th:each="user: ${accountants}">
+									    	<td th:text="${user.id}">
+									    	<td th:text="${user.name}">
+									    	<td th:text="${user.username}">
+									    	<td th:text="${user.role}">
+									    	<td th:text="${user.isEnabled}">
+									    	<td>
+									    	<button th:attr='onclick=|userEdit({"id":"${user.id}","name":"${user.name}","username":"${user.username}","password":"${user.password}","mobile":"${user.mobile}","sex":"${user.sex}","isEnabled": "${user.isEnabled}","role":"${user.role}" })|' class="btn btn-outline-danger"><i class="fas fa-user-edit"></i></button>
+									    	</td>
+									    	</td>
+									    </tr>
+									    
+									  </table>
+									</div>
+								</div>
+								
+							</div>
+							
+							<!-- accountant row end -->
+							
+							<!-- teachers row start -->
+							
+							<div th:if="${not #lists.isEmpty(teachers)}" class="col-md-12" id="teachers-row">
+								<div class="card mt-2">
+									
+								<div class="card-body">
+								<div class="card-header">
+										<h1><i class="fas fa-users"></i> Teachers</h1>
+									</div>
+									
+								</div>
+								<div class="table-responsive">
+									  <table class="table">
+									    <tr>
+									    <th >#</th>
+									    <th >Name</th>
+									    <th >User Name</th>
+									    <th >Role</th>
+									    <th>Status</th>
+									    <th>Teacher Id</th>
+									    <th>Action</th>
+									    </tr>
+									    <tr th:each="user: ${teachers}">
+									    	<td th:text="${user.id}">
+									    	<td th:text="${user.name}">
+									    	<td th:text="${user.username}">
+									    	<td th:text="${user.role}">
+									    	<td th:text="${user.isEnabled}">
+									    	<td ><span th:if="${user.teacher}" th:text="${user.teacher.id}"></span></td>
+									    	<td>
+									    	<button th:attr='onclick=|userEdit({"id":"${user.id}","name":"${user.name}","username":"${user.username}","password":"${user.password}","mobile":"${user.mobile}","sex":"${user.sex}","isEnabled": "${user.isEnabled}","role":"${user.role}" })|' class="btn btn-outline-danger"><i class="fas fa-user-edit"></i></button>
+									    	<a th:if="${user.teacher==null}" th:href="@{'/admin/add_teacher/'+${user.id}}" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></a>
+									    	</td>
+									    </tr>
+									    
+									  </table>
+									</div>
+								</div>
+								
+							</div>
+							
+							<!-- teachers row end -->
+							
+							<!-- student row start -->
+							
+							<div th:if="${not #lists.isEmpty(students)}"  class="col-md-12" id="students-row">
+								<div class="card mt-2">
+									
+								<div class="card-body">
+								<div class="card-header">
+										<h1><i class="fas fa-user-graduate"></i> Students</h1>
+									</div>
+									
+								</div>
+								<div class="table-responsive">
+									  <table class="table">
+									    <tr>
+									    <th >#</th>
+									    <th >Name</th>
+									    <th >User Name</th>
+									    <th >Role</th>
+									    <th>Status</th>
+									    <th>Student Id</th>
+									    <th>Action</th>
+									    </tr>
+									    <tr th:each="user: ${students}">
+									   
+									    	<td th:text="${user.id}">
+									    	<td th:text="${user.name}">
+									    	<td th:text="${user.username}">
+									    	<td th:text="${user.role}">
+									    	<td th:text="${user.isEnabled}">
+									    	<td ><span th:if="${user.student}" th:text="${user.student.id}"></span></td>
+									    	<td>
+									    	<button th:attr='onclick=|userEdit({"id":"${user.id}","name":"${user.name}","username":"${user.username}","password":"${user.password}","mobile":"${user.mobile}","sex":"${user.sex}","isEnabled": "${user.isEnabled}","role":"${user.role}" })|' class="btn btn-outline-danger"><i class="fas fa-user-edit"></i></button>									   
+									    	<a th:if="${user.student==null}" th:href="@{'/admin/student/add_student/'+${user.id}}" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></a>
+									    	</td>
+									    </tr>
+									    
+									  </table>
+									</div>
+								</div>
+								
+							</div>
+							
+							<!-- students row end -->
+							
+							
+							<!-- Users row start -->
+							
+							<div th:if="${not #lists.isEmpty(other_users)}" class="col-md-12" id="users-row">
+								<div class="card mt-2">
+									
+								<div class="card-body">
+								<div class="card-header">
+										<h1><i class="fas fa-users"></i> Users</h1>
+									</div>
+									
+								</div>
+								<div class="table-responsive">
+									  <table class="table">
+									    <tr>
+									    <th >#</th>
+									    <th >Name</th>
+									    <th >User Name</th>
+									    <th >Role</th>
+									    <th>Status</th>
+									    <th>Action</th>
+									    </tr>
+									    <tr th:each="user: ${other_users}">
+									    	<td th:text="${user.id}">
+									    	<td th:text="${user.name}">
+									    	<td th:text="${user.username}">
+									    	<td th:text="${user.role}">
+									    	<td th:text="${user.isEnabled}">
+									    	<td><button th:attr='onclick=|userEdit({"id":"${user.id}","name":"${user.name}","username":"${user.username}","password":"${user.password}","mobile":"${user.mobile}","sex":"${user.sex}","isEnabled": "${user.isEnabled}","role":"${user.role}" })|' class="btn btn-outline-danger"><i class="fas fa-user-edit"></i></button></td>
+									    	</td>
+									    </tr>
+									    
+									  </table>
+									</div>
+								</div>
+								
+							</div>
+							
+							<!-- users row end -->
+							
+						
+							
+							
+						</div>
+					</div>
+					
+					
+					<!-- modal for add new user -->
+					<div class="modal fade modal-1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					     <div class="card-body">
+					     	<h1 class="text-center text-primary"><i class="fas fa-plus"></i> Add New User</h1>
+					     
+					     
+					     	 <form th:action="@{/admin/add_new_user}" method="post" th:object="${user}" class="form">
+					      	<div class="form-group">
+					      		<label for="name">Name</label>
+					      		<input required class="form-control" type="text" name="name" placeholder="Enter User Name" />
+					      	</div>
+					      <div class="form-group">
+					      		<label for="username">User Name</label>
+					      		<input required class="form-control" type="text" name="username" placeholder="abc@gmail.com" />
+					      	</div>
+					      	<div class="form-group">
+					      		<label  >Gender</label>
+					      		<select name="sex" class="form-control">
+					      			<option value="MALE">MALE</option>
+					      			<option value="FEMALE">FEMALE</option>
+					      		</select>
+					      	</div>
+					      	<div class="form-group">
+					      		<label  for="password">Password</label>
+					      		<input required class="form-control" type="password" name="password" />
+					      	</div>
+					      	<div class="form-group">
+					      		<label for="role">Role</label>
+					      		<select required name="role" class="form-control">
+					      			<option value="ROLE_ADMIN" selected disabled>---PLEASE SELECT USER ROLE---</option>
+					      			<option value="ROLE_USER">USER</option>
+					      			<option value="ROLE_ADMIN">ADMIN</option>
+					      			<option value="ROLE_ACCOUNTANT">ACCOUNTANT</option>
+					      			<option value="ROLE_TEACHER">TEACHER</option>
+					      			<option value="ROLE_STUDENT">STUDENT</option>
+					      		</select>
+					      	</div>
+					      	<div class="form-check">
+							  <input onclick="$('#disabled-edit').removeAttr('checked')" id="enabled-edit" class="form-check-input" type="radio" name="isEnabled" value="1" checked>
+							  <label class="form-check-label" for="exampleRadios1">
+							    Enables
+							  </label>
+							</div>
+							<div class="form-check">
+							  <input id="disabled-edit" class="form-check-input" type="radio" name="isEnabled"  value="0">
+							  <label class="form-check-label" for="exampleRadios1">
+							    Disabled
+							  </label>
+							</div>
+					      	
+					      	<div class="container text-center">
+					      		<button type="submit" class="btn btn-outline-primary">Add User</button>
+					      	</div>
+					      </form>
+					     </div>
+					    </div>
+					  </div>
+					</div>
+					<!-- end modal for add new user -->
+					
+					<!-- modal for Edit user -->
+					<div class="modal fade modal-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					     <div class="card-body">
+					     	<h1 class="text-center text-primary"><i class="fas fa-user-edit"></i> Edit/Update User</h1>
+					     
+					     
+					     	 <form th:action="@{/admin/add_new_user}" method="post" th:object="${user}" class="form">
+					     	<div class="form-group">
+					      		<label for="id">Id</label>
+					      		<input id="id-edit" class="form-control" type="number" name="id" placeholder="Enter User Name" />
+					      	</div>
+					      	<div class="form-group">
+					      		<label for="name">Name</label>
+					      		<input id="name-edit" class="form-control" type="text" name="name" placeholder="Enter User Name" />
+					      	</div>
+					      <div class="form-group">
+					      		<label for="username">User Name</label>
+					      		<input id="username-edit" class="form-control" type="text" name="username" placeholder="Email" />
+					      	</div>
+					      	<div class="form-group">
+					      		<label for="username">Mobile</label>
+					      		<input id="mobile-edit" class="form-control" type="number" name="mobile" placeholder="Mobile Number" />
+					      	</div>
+					      	<div class="form-group">
+					      		<label  for="password">Password</label>
+					      		<input id="password-edit" class="form-control" type="password" name="password" />
+					      	</div>
+					      	<div class="form-group">
+					      		<label  for="password">Gender</label>
+					      		<select name="sex" id="sex-edit" class="form-control">
+					      			<option value="MALE">MALE</option>
+					      			<option value="FEMALE">FEMALE</option>
+					      		</select>
+					      	</div>
+					      	<div class="form-group">
+					      		<label for="role">Role</label>
+					      		<select id="role-edit" name="role" class="form-control">
+					      			<option value="ROLE_USER" selected disabled>---PLEASE SELECT USER ROLE---</option>
+					      			<option value="ROLE_USER">USER</option>
+					      			<option value="ROLE_ADMIN">ADMIN</option>
+					      			<option value="ROLE_ACCOUNTANT">ACCOUNTANT</option>
+					      			<option value="ROLE_TEACHER">TEACHER</option>
+					      			<option value="ROLE_STUDENT">STUDENT</option>
+					      		</select>
+					      	</div>
+					      	
+					      	<div class="form-check">
+							  <input onclick="$('#disabled-edit').removeAttr('checked')" id="enabled-edit" class="form-check-input" type="radio" name="isEnabled" value="1" checked>
+							  <label class="form-check-label" for="exampleRadios1">
+							    Enables
+							  </label>
+							</div>
+							<div class="form-check">
+							  <input id="disabled-edit" class="form-check-input" type="radio" name="isEnabled"  value="0">
+							  <label class="form-check-label" for="exampleRadios1">
+							    Disabled
+							  </label>
+							</div>
+					      	
+					      	<div class="container text-center">
+					      		<button type="submit" class="btn btn-outline-primary">save</button>
+					      	</div>
+					      </form>
+					     </div>
+					    </div>
+					  </div>
+					</div>
+					<!-- end modal for edit user -->
+		
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+	<div th:if="${teacher.account}">
+	
+					<div class="row mr-0">
+						<div class="col-md-3 mb-3">
+									<div class="card">
+										<div class="card-body">
+										<div class="container text-center">
+											<div>
+												<img style="border-radius:20%;" class="m-2" width="100px" th:src="@{'/img/'+${(teacher.profile != null)? teacher.profile : ''}}" alt="teacher image" />
+												
+											</div>
+											
+											
+										</div>
+										
+										<table class="table">
+										<tr>
+												<th>Name : </th>
+												<td><p th:text="${teacher.name}"></p></td>
+											</tr>
+
+											<tr>
+												<th>Contact No : </th>
+												<td><p th:text="${teacher.numbers}"></p></td>
+											</tr>
+							
+										</table>								
+									
+									</div>
+									</div>
+								</div>
+								<div th:each="course : ${teacher.courses}" class="col-md-3 mb-3">
+									<div class="card">
+										<div class="card-body">
+										<div class="container text-center">
+											<h4 th:text="${course.name}"></h4>
+											
+											
+										</div>
+										
+										<table class="table">
+										<tr>
+												<th>Total Students : </th>
+												<td><p th:text="${#lists.size(course.students)}"></p></td>
+											</tr>
+
+											<tr>
+												<th>Salary Type : </th>
+												<td><select name="" id="salaryType" onchange="calculatePerCourse(this)">
+													<option th:value="${'m'+course.id}">Per Month</option>
+													<option th:value="${'s'+course.id}">Per Student</option>
+												</select></td>
+											</tr>
+											<tr>
+												<th>Percent % : </th>
+												<td><input type="number" th:id="${'percent'+course.id}" /></td>
+											</tr>
+											<tr>
+												<th>Total : </th>
+												<td><p th:id="${'total'+course.id}"></p></td>
+											</tr>
+										</table>								
+									
+									</div>
+									</div>
+								</div>
+					
+					
+					</div>
+
+<div>
+	<h2 class="text-left text-primary mt-5">Transactions</h2>
+
+				<div class="pr-5">
+					<!-- payment details start -->
+				<div class="table-responsive">
+				<table class="table" th:if="${teacher.account.transactions != null}">
+					<thead class="thead-dark">
+						<tr>
+						<th>#Id</th>
+						
+						<th>Amount</th>
+						<th>Time stamp</th>
+						<th>Type</th>
+						<th>Remarks</th>
+						<th>Mode</th>
+						
+						<th>Balance</th>
+					</tr>
+					</thead>
+					<tr class="" th:each="i : ${#numbers.sequence(teacher.account.transactions.size()-1,0,-1)}" th:classAppend="${(account.transactions[i].type == 'DEBIT')? 'table-danger' : 'table-success'}">
+						<td th:text="${account.transactions[i].id}"></td>
+						<td th:text="${account.transactions[i].amount}"></td>
+						<td th:text="${account.transactions[i].timestamp}"></td>
+						<td th:text="${account.transactions[i].type}"></td>
+						<td th:text="${account.transactions[i].remarks}"></td>
+						<td th:text="${account.transactions[i].mode}"></td>
+						<td th:text="${account.transactions[i].balance}"></td>
+					</tr>
+
+				</table>
+				</div>
+				<!-- payment details end -->				
+				</div>
+	
+</div>
+		
+	</div>			
+	<div th:unless="${teacher.account}" class="container text-center">
+		<h2>Sorry No record found</h2>
+	</div>			
+		
+		
+	</section>
+</body>
+</html>

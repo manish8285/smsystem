@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="student/student_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+					
+					<div class="container">
+						<div class="rw mr-0">
+							<div class="col-md-6 offset-md-3">
+								<div class="card">
+							<div class="card-body">
+								<div class="container text-center">
+									<img class="text-center" width="80px" th:src="@{'/img/'+${(student.profile==null)? 'defaultStudent.png': student.profile}}" alt="student img" />
+									<h2 class="mt-2" th:text="${student.name}"></h2>
+									
+								</div>
+								<table class="table">
+										<tr>
+											<th>Courses :</th>
+											<td><span th:each="c: ${student.courses}" th:text="${c.name+' '}"></span></td>
+										</tr>
+										<tr>
+											<th>Mobile :</th>
+											<td><span th:text="${student.numbers}"></span></td>
+										</tr>
+										<tr>
+											<th>Email :</th>
+											<td><span th:text="${student.email}"></span></td>
+										</tr>
+										<tr>
+											<th>Account Balance :</th>
+											<td><p class="btn btn-small btn-danger my-0"  th:text="${student.account.accountBalance}"></p>
+												<p class="btn btn-small btn-success ml-2 my-0" data-toggle="modal" data-target=".bd-example-modal-lg"  ><i class="fas fa-rupee-sign"></i> Pay</p>
+											</td>
+										</tr>
+									</table>
+							</div>
+						</div>
+							</div>
+						</div>
+			</div>		
+			<div class="mr-2 mt-3" th:with="account =${student.account}">
+						
+				<h2 class="text-left text-primary mt-5">All Transactions</h2>
+				<!-- fee details start -->
+
+				<div class="table-responsive">
+					<table class="table">
+					<thead class="table-dark">
+						<tr>
+						<th>Amount</th>
+						<th>Date</th>
+						<th>Type</th>
+						<th>Mode</th>
+						<th>Remarks</th>
+						<th>Balance</th>
+					</tr>
+					</thead>
+					<tr class="" th:each="t : ${account.transactions}" th:classAppend="${(t.type=='DEBIT')? 'table-danger' : 'table-success'}" > 
+						<td th:text="${t.amount}"></td>
+						<td th:text="${t.timestamp}"></td>
+						<td th:text="${t.type}"></td>
+						<td th:text="${t.mode}"></td>
+						<td th:text="${t.remarks}"></td>
+						<td th:text="${t.balance}"></td>
+					</tr>
+				</table>
+				</div>
+
+
+				
+										
+					<!-- modal for payment  -->
+
+		<div class="modal fade bd-example-modal-lg" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="container">
+						<div class="card-body">
+							<h1>Add Balance To Account</h1>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Account Number</label> <input
+										name="acid"
+										id="account_id"
+										type="number" class="form-control"
+										readonly
+										 th:value="${account.acid}">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Student Name</label> <input
+										type="text" class="form-control"
+										disabled
+										aria-describedby="emailHelp" th:value="${account.student.name}">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" th:value="${'Account Balance: '+account.accountBalance}" readonly />
+								</div>
+								
+								<div class="form-group">
+									<label for="amount">Amount</label>
+									<input
+										name="amount"
+										id="dueAmount"
+										type="number" class="form-control">
+								</div>
+
+								<div class="container text-center">
+								
+									<button onclick="requestPayment()" class="btn btn-primary">Continue >></button>
+								</div>						
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal for payment end -->	
+						
+			</div>
+
+				
+		
+		
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="row mr-0">
+			<div class="col-md-4 offset-md-4">
+				<div class="card form-container container mt-5">
+			<div class="container text-center pt-4">
+				<h1>New User?? Signup</h1>
+			</div>
+
+			<div class="card-body">
+				<form th:action="@{/process_user_signup}" method="post" th:object="${user}">
+				<div class="form-group">
+						<input
+						required
+						name="name"
+						type="text" class="form-control"
+						placeholder="Enter Full Name"> 
+				</div>
+				<div class="form-group row">
+						<div class="col-sm-8">
+						<input
+						required
+						name="username"
+						type="email" class="form-control" id="userEmail"
+						aria-describedby="emailHelp" placeholder="Enter email"> 
+						</div>
+						<div class="col-sm-4 pl-0"><input type="button" value="send OTP" class="btn btn-outline-warning form-control btn-block" onclick="sendOTP()" id="btnSendOTP"></div>
+				</div>
+			<div id="restForm" style="display:none">	
+				<div class="form-group"> 
+					<input
+						name="OTP"
+						type="number" class="form-control" id="OTP"
+						placeholder="Enter OTP">
+				</div>
+				<div class="form-group">
+						<input
+						name="mobile"
+						type="number" class="form-control" id="exampleInputMobile"
+						placeholder="Mobile">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Date Of Birth</label> <input
+						name="DOB"
+						type="date" class="form-control" id="exampleInputDatOfBirth"
+						placeholder="Date of birth">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Gender</label> 
+					<select class="form-control" name="sex">
+						<option value="MALE">MALE</option>
+						<option value="FEMALE">FEMALE</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="exampleInputPassword1">Password</label> <input
+						required
+						name="password"
+						type="password" class="form-control" id="exampleInputPassword1"
+						placeholder="Password">
+				</div>		
+				<div class="form-check">
+					<input required type="checkbox" class="form-check-input" id="exampleCheck1">
+					<label class="form-check-label" for="exampleCheck1">I accept all the terms and condition</label>
+				</div>
+				<div class="container text-center">
+					<button type="submit" class="btn btn-primary">Signup</button>
+				</div>
+			</div>	
+			</form>
+			
+			
+			
+			</div>
+
+
+		</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>

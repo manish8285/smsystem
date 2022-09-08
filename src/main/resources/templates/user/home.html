@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="user/user_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>	
+				<div th:if=${session.message}>
+					<div class="alert-warning" th:text="${session.message.message}"></div>
+					<span text="${#session.removeAttribute('message')}"></span>
+				</div>
+				
+					
+				
+				
+		
+	</section>
+</body>
+</html>

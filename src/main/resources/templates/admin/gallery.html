@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+
+			 <!-- Gallery Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <div class="container">
+            <div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">Our Gallery</span></p>
+                <div class="card">
+            	<div class="card-body image-upload-input">
+            		<form th:action="@{/admin/upload_to_gallery}" method="post" enctype="multipart/form-data" th:object="${gallery}" >
+            			<label for="input-file" style="cursor:pointer;">
+            				<img th:src="@{/img/upload-file.webp}" width="110px" class="uploading-image" alt="upload file image" />
+            			</label>
+            			<input type="file" id="input-file" onchange="showUploadingImage(event)" name="picture" style="display:none" />
+            			<input type="submit" class="btn btn-outline-success" value="Submit" />
+            		</form>
+            	</div>
+            </div>
+            </div>
+            
+            
+
+            <div  class="row portfolio-container">
+                <div th:each="g : ${galleryList}" class="col-lg-4 col-md-6 mb-4 portfolio-item first">
+                    <div class="position-relative overflow-hidden mb-2">
+                        <img class="img-fluid w-100" th:src="@{'/img/'+${g.pic}}" alt="pic">
+                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
+                            <a th:href="@{'/img/'+${g.pic}}" data-lightbox="portfolio">
+                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
+                            </a>
+                        </div>
+                        <a th:href="@{'/admin/gallery/delete/'+${g.id}}" class="btn btn-small btn-danger m-1 float-right">Delete</a>
+                    </div>
+                </div>
+        
+    </div>
+    <!-- Gallery End -->
+		
+		
+	</section>
+</body>
+</html>

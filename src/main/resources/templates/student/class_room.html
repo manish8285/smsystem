@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="student/student_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+			
+			<div class="bg-primary p-2">
+					<div class="container text-center">
+					<h2 class="text-light" th:text="${course.name}"></h2>
+					<img class="mb-2" th:src="@{'/img/'+${(course.profile !=null)? course.profile : 'teacher.png' }}" width="90px" alt="course image" />
+
+				</div>
+							
+			<div class="card mt-1" th:each="cw : ${classworks}">
+				<div class="card-body">
+					
+					<div class="float-right">
+					</div>	
+					<h2 th:text="${cw.title}"></h2>
+					<p th:text="${cw.description}"></hp>
+					<div th:if="${cw.reference}">
+						<div th:if="${#strings.contains(cw.reference,'.png')} OR ${#strings.contains(cw.reference,'.jpg')}">
+							<img width="80px" th:src="@{'/img/'+ ${cw.reference}}" alt="image" />
+						</div>
+						<div th:unless="${#strings.contains(cw.reference,'.png')} OR ${#strings.contains(cw.reference,'.jpg')}">
+							<a th:href="@{'/img/'+ ${cw.reference}}" download>
+								<img width="80px" th:src="@{/img/pdflogo.jpg}" alt="pdf logo" />
+							</a>
+						</div>
+							
+					</div>
+					
+					
+					<div class="container text-center" th:if="${cw.totalMarks>0}">
+					<img th:src="@{/img/upload-file.webp}" style="cursor:pointer"
+									 class="uploading-image" onclick="uploadClassWork()" th:attr="onclick=|uploadClassWork('${cw.id}')|"  alt="upload file" width="80px" />
+								
+								<div th:each="w : ${cw.works}">
+									<span class="text-primary" th:text="${(w.student.id==student.id)? 'Work Submitted': ''}"></span>
+								</div>
+								
+					</div>
+					
+					<div>
+							<div class="float-left">
+						<p class="m-0">Posted On</p>
+					<p ><i class="fas fa-clock"></i> <span th:text="${cw.date}"></span></p>
+					</div>
+					
+					<div class="float-right" th:if="${cw.totalMarks>0}">
+						<p class="m-0">Due Date:</p>
+						<p><i class="fas fa-history"></i>  <span th:text="${(cw.lastDate == null) ? 'No' : cw.lastDate}"></span></p>
+						
+						
+					</div>
+					
+				</div>
+			</div>
+				</div>
+			</div>
+					
+					
+							<!-- modal for submit work  -->
+
+		<div class="modal fade uploadClassWork" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="container">
+						<div class="card-body">
+							<h1>Submit your work</h1>
+								<form th:action="@{/student/classroom/work/submit}" method="post" enctype="multipart/form-data" th:object="${work}" class="form">
+									<div class="form-group">
+										<input type="number" id="cwid" name="cwid" class="form-control" readonly />
+										</div>
+									<div class="form-group">
+											<label for="input-file">
+												<img th:src="@{/img/upload-file.webp}" class="uploading-image" id="classWork-uploading-image" style="cursor:pointer" width="90px" alt="upload file" />
+											</label>
+											<input type="file" id="input-file" onchange="classWorkFileShow(event)" name="workFile" style="display:none">
+										</div>
+										
+									<input type="submit" class="btn btn-outline-primary" value="Submit your work"
+									 />
+								</form>		
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal for payment end -->				
+		
+		
+	</section>
+</body>
+</html>

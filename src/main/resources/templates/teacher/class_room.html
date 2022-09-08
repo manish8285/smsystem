@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="teacher/teacher_base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section>
+			
+			<div class="bg-primary p-2 mr-md-2">
+					<div class="container text-center">
+					<h2 class="text-light" th:text="${course.name}"></h2>
+					<img class="mb-2" th:src="@{${(course.profile !=null)? course.profile : '/img/teacher.png' }}" width="90px" alt="course image" />
+				</div>
+				
+				<div class="classroom-header card">
+					<div class="card-body">
+						<form th:action="@{/teacher/classroom/classwork}" enctype="multipart/form-data" class="form" method="post" th:object="${classwork}">
+						<input type="number" name="cid"  th:value="${course.id}" style="display:none"/>
+							<div class="form-group">
+								<select name="" onchange="classWorkAssignment()" id="cwSelection" class="form-control">
+									<option value="STUDY">STUDY MATERIAL</option>
+									<option value="ASSIGNMENT">ASSIGNMENT</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" id="title" name="title" placeholder="Enter Title" />
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" rows="3" id="details" name="description" placeholder="Enter Some Information" ></textarea>
+							</div>
+							<div id="cwAssignment" style="display:none">
+								<div class="form-group" id="cwLastDate">
+								<label for="lastDate">Last Date</label>
+								<input class="form-control" type="date" th:value="${'2022-05-23'}" id="lastDate" name="lastDate" />
+							</div>
+							<div class="form-group" id="cwTotalMarks">
+								<input class="form-control" type="number" placeholder="Total Marks" value="0" id="totalMarks" name="totalMarks" />
+							</div>
+							</div>
+							<div class="form-group">
+								<label for="references">
+									<img th:src="@{/img/upload-file.webp}" class="uploading-image" alt="upload file" width="80px" />
+								</label>
+								<input onchange="showUploadingImage(event)" type="file" name="ref" id="references" style="display:none;" />
+							</div>
+							<button class="btn btn-outline-primary" type="submit">Submit</button>
+						</form>
+					</div>
+				</div>
+			
+
+			
+			<div class="card mt-1" th:each="cw : ${classworks}">
+				<div class="card-body">
+					
+					<div class="float-right">	
+						<button th:if="${cw.totalMarks>0}" href="" th:attr="data-target=|${'.cw'+cw.id}|" data-toggle="modal" class="btn btn-small btn-outline-success"><i class="fas fa-file-pdf"></i> <span th:text="${#lists.size(cw.works)}"></span></button>
+						<a class="ml-2 btn btn-outline-danger " th:href="@{'/teacher/classroom/classwork/delete/'+${course.id}+'/'+${cw.id}}"><i class="fas fa-trash-alt"></i></a>
+						<a class="btn btn-outline-warning" href=""><i class="fas fa-edit"></i></a>
+					</div>	
+					<h2 th:text="${cw.title}"></h2>
+					<p th:text="${cw.description}"></hp>
+					<div th:if="${cw.reference}">
+						<div th:if="${#strings.contains(cw.reference,'.png')} OR ${#strings.contains(cw.reference,'.jpg')}">
+							<img width="80px" th:src="@{'/img/'+ ${cw.reference}}" alt="image" />
+						</div>
+						<div th:unless="${#strings.contains(cw.reference,'.png')} OR ${#strings.contains(cw.reference,'.jpg')}">
+							<a th:href="@{'/img/'+ ${cw.reference}}" download>
+								<img width="80px" th:src="@{/img/pdflogo.jpg}" alt="pdf logo" />
+							</a>
+						</div>
+						
+					</div>
+					<div>
+							<div class="float-left">
+						<p class="m-0 text-primary">Posted On</p>
+					<p ><i class="fas fa-clock"></i> <span class="" th:text="${cw.date}"></span></p>
+					</div>
+					
+					<div class="float-right" th:if="${cw.totalMarks>0}">
+						<p class="m-0 text-primary">Due Date:</p>
+						<p><i class="fas fa-history"></i>  <span th:text="${(cw.lastDate == null) ? 'No' : cw.lastDate}"></span></p>
+						
+						
+					</div>
+					
+				</div>
+				
+</div>	
+									<!-- modal for showing submitted work -->
+
+		<div class="modal" th:classAppend="cw+${cw.id}" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="container">
+						<div class="card-body" th:if="${cw.works}">
+	
+						<h2 th:text="${cw.title}"></h2>
+								<div class="table-responsive">
+						<div class="table">
+							<table>
+
+								<thead>
+									<tr>
+									<th><p>Name</p></th>
+									<th><p class="d-flex">Roll No</p></th>
+									<th><p>Submitted</p></th>
+									<th><p>Marks Obtain/<span  th:text="${cw.totalMarks}"></span></p></th>
+									</tr>
+								</thead>
+							<tr th:each="hw : ${cw.works}" >
+										
+											<td>
+											<span th:text="${hw.student.name}"></span>
+											</td>
+											<td><span th:text="${hw.student.rollNo}"> </span></td>
+											<td>
+												<a th:href="@{'/img/'+${hw.work}}">
+													<img th:src="@{/img/fileUploaded.png}" width="40px" alt="file uploaded" />
+												</a>
+											</td>
+												<td>
+										<form th:action="@{'/teacher/classroom/work/update/'+${course.id}}" class="form" th:object="${work}">	
+										<input type="number" th:value="${hw.id}" style="display:none" name="id" />
+														<div class="d-flex">
+														<input type="number" th:value="${hw.marks}" style="width:70px;" class="card" name="marks"  />
+														<button class="btn btn-small btn-outline-warning ml-2" onclick="" >Update</button>
+														</div>
+										</form>
+												</td>
+											
+							</tr>
+							</table>										
+							</div>
+						</div>					
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal for showing submitted work end -->	
+				
+				
+				
+			</div>
+				</div>
+			
+								
+		
+		
+	</section>
+</body>
+</html>

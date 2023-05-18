@@ -64,3 +64,28 @@ Backend has been developed by employing the following things
 * Spring Data Jpa
 * Java 11
 * MySQL database
+
+# SnapShot
+
+![image](https://github.com/manish8285/smsystem/assets/113131864/41b8919a-fe5a-48ef-b61a-5268c73d4d34)
+![image](https://github.com/manish8285/smsystem/assets/113131864/19abb5e7-ce2a-452e-b96f-b5227a31de04)
+![image](https://github.com/manish8285/smsystem/assets/113131864/a3529743-12f4-40e3-97a1-86fef179ed8b)
+![image](https://github.com/manish8285/smsystem/assets/113131864/ddf4192d-f5c8-4100-880f-8d8d459d0a6a)
+![image](https://github.com/manish8285/smsystem/assets/113131864/9a0e5033-9df0-41ac-9c3e-1a58c92902a8)
+![image](https://github.com/manish8285/smsystem/assets/113131864/924a513e-cc51-4ba1-875e-cb78a7ff097b)
+![image](https://github.com/manish8285/smsystem/assets/113131864/65b944ee-c647-417d-8ba3-a89361b71b83)
+![image](https://github.com/manish8285/smsystem/assets/113131864/76b6d4b9-6a7c-42b7-971a-99027a720853)
+![image](https://github.com/manish8285/smsystem/assets/113131864/a5e4e5d0-52b1-4d44-b884-1226ce921283)
+![image](https://github.com/manish8285/smsystem/assets/113131864/9e76ea51-f66a-4947-9805-4b86abfe34dc)
+![image](https://github.com/manish8285/smsystem/assets/113131864/d40d76b8-9f2d-4130-be7a-597b3a8512b5)
+![image](https://github.com/manish8285/smsystem/assets/113131864/7e3d9925-ad54-4bd6-97dd-e720cde02805)
+![image](https://github.com/manish8285/smsystem/assets/113131864/41a4789f-b1d3-4860-b3a2-56e1f30a5c5f)
+![image](https://github.com/manish8285/smsystem/assets/113131864/c271e597-8d34-4306-b50e-f916362a9ef9)
+![image](https://github.com/manish8285/smsystem/assets/113131864/397617a4-16aa-4f8b-a4dc-8d5884a1d79a)
+![image](https://github.com/manish8285/smsystem/assets/113131864/f9fe2951-cd90-4b07-b530-241b87c27e7e)
+![image](https://github.com/manish8285/smsystem/assets/113131864/b46eb7cb-85ab-46aa-acea-39bab85ef003)
+![image](https://github.com/manish8285/smsystem/assets/113131864/79fc0be0-1de4-49fe-87b6-2a227d5bb8bd)
+![image](https://github.com/manish8285/smsystem/assets/113131864/01b03895-4143-45b4-a71a-3ba5c4569e23)
+![image](https://github.com/manish8285/smsystem/assets/113131864/595a96f7-e9c7-4f80-833a-130a9edc164d)
+![image](https://github.com/manish8285/smsystem/assets/113131864/613232e6-88e6-45ac-b914-a31865c1eb4d)
+
